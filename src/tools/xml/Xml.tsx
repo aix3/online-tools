@@ -7,6 +7,14 @@ function Xml() {
     let [input1, setInput1] = useState('');
     let [input2, setInput2] = useState('');
 
+    let handleEscape = (xml: string) => {
+        setInput2(`escaped: ${xml}`)
+    }
+
+    let handleUnescape = (xml: string) => {
+        setInput1(`unescaped: ${xml}`)
+    }
+
     return (
         <>
             <div style={{
@@ -20,6 +28,7 @@ function Xml() {
                     <TextArea
                         rows={20}
                         allowClear={true}
+                        value={input1}
                         onChange={(e) => setInput1(e.target.value)}
                         placeholder="Please input escaped XML"
                     />
@@ -30,8 +39,8 @@ function Xml() {
                     justifyContent: "center",
                     alignItems: "center"
                 }}>
-                    <Button>Escape</Button>
-                    <Button>Unescape</Button>
+                    <Button onClick={e => handleEscape(input1)}>Escape</Button>
+                    <Button onClick={e => handleUnescape(input2)}>Unescape</Button>
                 </div>
                 <div style={{
                     width: '40%'
@@ -39,6 +48,7 @@ function Xml() {
                     <TextArea
                         rows={20}
                         allowClear={true}
+                        value={input2}
                         onChange={(e) => setInput2(e.target.value)}
                         placeholder="Please input escaped XML"
                     />
