@@ -1,56 +1,72 @@
 import {Button, Input} from "antd";
 import {useState} from "react";
+import styles from "./Xml.module.css"
 
 const {TextArea} = Input;
 
+function escape(xml: string): string {
+    return xml.replace(/[<>&'"]/g, function (c: string): string {
+        switch (c) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '&':
+                return '&amp;';
+            case '\'':
+                return '&apos;';
+            case '"':
+                return '&quot;';
+        }
+        return c
+    });
+}
+
+function unescape(xml: string): string {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = xml;
+    return txt.value;
+}
+
 function Xml() {
-    let [input1, setInput1] = useState('');
-    let [input2, setInput2] = useState('');
+    let [input, setInput] = useState('');
+    let [result, setResult] = useState('');
 
     let handleEscape = (xml: string) => {
-        setInput2(`escaped: ${xml}`)
+        setResult(escape(xml));
     }
 
     let handleUnescape = (xml: string) => {
-        setInput1(`unescaped: ${xml}`)
+        setResult(unescape(xml));
     }
 
     return (
         <>
             <div style={{
                 display: "flex",
-                flexFlow: "row",
+                flexFlow: "column",
                 justifyContent: "space-between",
             }}>
-                <div style={{
-                    width: '40%'
-                }}>
+                <div style={{}}>
                     <TextArea
-                        rows={20}
-                        allowClear={true}
-                        value={input1}
-                        onChange={(e) => setInput1(e.target.value)}
-                        placeholder="Please input escaped XML"
+                        rows={15}
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        placeholder="Please input the XML to be evaluate"
                     />
                 </div>
-                <div style={{
-                    display: "flex",
-                    flexFlow: "column",
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}>
-                    <Button onClick={e => handleEscape(input1)}>Escape</Button>
-                    <Button onClick={e => handleUnescape(input2)}>Unescape</Button>
+                <div className={styles.buttonContainer}>
+                    <Button type={'primary'} className={`${styles.button}`}
+                            onClick={() => handleEscape(input)}>Escape</Button>
+                    <Button type={'default'} className={`${styles.button}`}
+                            onClick={() => handleUnescape(input)}>Unescape</Button>
                 </div>
-                <div style={{
-                    width: '40%'
-                }}>
+                <div style={{}}>
                     <TextArea
-                        rows={20}
-                        allowClear={true}
-                        value={input2}
-                        onChange={(e) => setInput2(e.target.value)}
-                        placeholder="Please input escaped XML"
+                        rows={15}
+                        value={result}
+                        onChange={e => setResult(e.target.value)}
+                        placeholder="The result of evaluated"
                     />
                 </div>
             </div>
