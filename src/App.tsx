@@ -13,8 +13,8 @@ function App() {
             </div>
             <div>
                 <Routes>
-                    <Route path="/" element={<Index/>}/>
-                    <Route path="/xml" element={<Xml/>}/>
+                    <Route path="./" element={<Index/>}/>
+                    <Route path="./xml" element={<Xml/>}/>
                 </Routes>
             </div>
         </div>
