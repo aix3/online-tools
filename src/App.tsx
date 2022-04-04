@@ -1,10 +1,11 @@
 import 'antd/dist/antd.less'
 import './App.less'
+
 import {Route, Routes} from "react-router-dom";
 
-import Xml from "./pages/xml/Xml";
 import Layout from "./pages/layout/Layout";
 import Index from "./pages/index/Index";
+import Xml from "./pages/xml/Xml";
 
 function App() {
     return (

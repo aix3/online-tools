@@ -1,5 +1,6 @@
 import {Card, Select} from "antd";
 import {Link} from "react-router-dom";
+
 import styles from "./Index.module.less"
 
 const {Option} = Select;
@@ -22,12 +23,12 @@ export default function Index() {
             {/*        /!*<Option key={2}>{'2222222'}</Option>*!/*/}
             {/*    </Select>*/}
             {/*</div>*/}
-            <div style={{height: '50px'}}></div>
-            <div>
+            <div style={{height: '50px'}}/>
+            <div className={styles.cards}>
                 <Link to='/xml'>
-                    <Card style={{width: 300}}
-                          key={'xml'}
-                          hoverable
+                    <Card
+                        key={'xml'}
+                        hoverable
                     >
                         <h3>XML Tools</h3>
                         <p>Escape / Unescape / Others</p>
