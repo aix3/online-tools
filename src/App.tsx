@@ -1,4 +1,5 @@
-import './App.css'
+import 'antd/dist/antd.less'
+import './App.less'
 import {Route, Routes} from "react-router-dom";
 
 import Xml from "./pages/xml/Xml";

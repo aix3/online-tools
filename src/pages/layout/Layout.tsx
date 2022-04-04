@@ -6,10 +6,10 @@ export default function Layout(props: React.PropsWithChildren<any>) {
         <div>
             <div className={styles.navigation}>
                 <div className={styles.logo}>
-                    <a href='/'>OnlineTools</a>
+                    <a href='./'>OnlineTools</a>
                 </div>
                 <div className={styles.menu}>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="./">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
                 </div>
