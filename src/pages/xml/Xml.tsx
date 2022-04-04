@@ -1,6 +1,8 @@
 import {Button, Input} from "antd";
+import {SwapOutlined} from "@ant-design/icons";
 import {useState} from "react";
-import styles from "./Xml.module.css"
+import styles from "./Xml.module.less"
+import {classNames} from "../../utils/classNames";
 
 const {TextArea} = Input;
 
@@ -40,30 +42,45 @@ function Xml() {
         setResult(unescape(xml));
     }
 
+    let handleSwap = () => {
+        setInput(result)
+        setResult(input)
+    }
+
     return (
         <>
-            <div style={{
-                display: "flex",
-                flexFlow: "column",
-                justifyContent: "space-between",
-            }}>
-                <div style={{}}>
+            <div>
+                <h4>XML Tools</h4>
+            </div>
+            <div className={styles.container}>
+                <div>
                     <TextArea
-                        rows={15}
+                        rows={17}
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         placeholder="Please input the XML to be evaluate"
                     />
                 </div>
                 <div className={styles.buttonContainer}>
-                    <Button type={'primary'} className={`${styles.button}`}
-                            onClick={() => handleEscape(input)}>Escape</Button>
-                    <Button type={'default'} className={`${styles.button}`}
-                            onClick={() => handleUnescape(input)}>Unescape</Button>
+                    <Button type={'primary'}
+                            className={styles.button}
+                            onClick={() => handleEscape(input)}>
+                        Escape
+                    </Button>
+                    <Button type={'primary'}
+                            className={classNames(styles.button, styles.buttonGreen)}
+                            onClick={() => handleUnescape(input)}>
+                        Unescape
+                    </Button>
+                    <Button icon={<SwapOutlined className={styles.rotate90}/>}
+                            className={styles.button}
+                            onClick={() => handleSwap()}>
+                        Swap
+                    </Button>
                 </div>
-                <div style={{}}>
+                <div>
                     <TextArea
-                        rows={15}
+                        rows={17}
                         value={result}
                         onChange={e => setResult(e.target.value)}
                         placeholder="The result of evaluated"

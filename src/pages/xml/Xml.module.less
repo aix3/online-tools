@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-flow: column;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+    .button {
+        width: 100px;
+        margin-right: 20px;
+    }
+}
+
+.rotate90 {
+    transform: rotate(90deg);
+}
+
+.buttonGreen {
+    @color-green: #02be14;
+
+    color: #fff;
+    border-color: @color-green;
+    background: @color-green;
+
+    &:hover {
+        background: @color-green;
+        border-color: @color-green;
+        filter: brightness(110%);
+    }
+    &:focus {
+        background: @color-green;
+        border-color: @color-green;
+        filter: brightness(110%);
+    }
+    &:active {
+        background: @color-green;
+        border-color: @color-green;
+        filter: brightness(90%);
+    }
+}

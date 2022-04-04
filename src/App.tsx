@@ -1,22 +1,19 @@
 import './App.css'
 import {Route, Routes} from "react-router-dom";
 
-import Xml from "./tools/xml/Xml";
-import Index from "./pages/Index";
+import Xml from "./pages/xml/Xml";
+import Layout from "./pages/layout/Layout";
+import Index from "./pages/index/Index";
 
 function App() {
     return (
-        <div className={'container'}>
-            <div className={'header'}>
-                <h1>Online Develop Tools</h1>
-                <hr/>
-            </div>
-            <div>
+        <div>
+            <Layout>
                 <Routes>
                     <Route path="/" element={<Index/>}/>
                     <Route path="/xml" element={<Xml/>}/>
                 </Routes>
-            </div>
+            </Layout>
         </div>
     )
 }
