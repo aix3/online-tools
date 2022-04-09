@@ -29,11 +29,9 @@ const tools = [
 ] as Tool[]
 
 export default function Index() {
-    const [result, setResult] = useState([] as Tool[])
-    const [keyword, setKeyword] = useState('')
+    const [result, setResult] = useState<Tool[]>([])
 
     const handleSearch = function (keyword: string) {
-        setKeyword(keyword)
         setResult(tools.filter(
                 r => r.title.toLowerCase().includes(keyword.toLowerCase())
                     || r.description.toLowerCase().includes(keyword.toLowerCase())
@@ -47,7 +45,6 @@ export default function Index() {
                 <Select
                     className={styles.search}
                     showSearch
-                    value={keyword}
                     size={'large'}
                     placeholder={'Search ...'}
                     defaultActiveFirstOption={false}
