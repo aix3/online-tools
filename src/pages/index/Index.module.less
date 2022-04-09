@@ -3,10 +3,29 @@
   justify-content: center;
 }
 
-.searchInput {
-  margin-top: 20px;
-  width: 50%;
-  height: 50px;
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+
+  div {
+    width: 100%;
+  }
+
+  :global {
+    .ant-select-selector {
+      border-radius: 100px !important;
+
+      span {
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+.description {
+  color: grey;
 }
 
 .cards {

@@ -8,11 +8,11 @@ export default function Layout(props: React.PropsWithChildren<any>) {
                 <div className={styles.logo}>
                     <a href='./'>OnlineTools</a>
                 </div>
-                <div className={styles.menu}>
+                <nav className={styles.menu}>
                     <li><a href="./">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
-                </div>
+                </nav>
             </div>
             <div className={styles.container}>
                 <div className={styles.content}>

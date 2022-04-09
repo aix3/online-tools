@@ -1,45 +1,43 @@
 import {Button, Input, Space} from "antd";
 import {SwapOutlined} from "@ant-design/icons";
 import {useState} from "react";
-import styles from "./Xml.module.less"
+import styles from "./Encode.module.less"
 import {classNames} from "../../utils/classNames";
 
 const {TextArea} = Input;
 
-function escape(xml: string): string {
-    return xml.replace(/[<>&'"]/g, function (c: string): string {
-        switch (c) {
-            case '<':
-                return '&lt;';
-            case '>':
-                return '&gt;';
-            case '&':
-                return '&amp;';
-            case '\'':
-                return '&apos;';
-            case '"':
-                return '&quot;';
-        }
-        return c
-    });
+function utf8_to_b64(str: string) {
+    return window.btoa(unescape(encodeURIComponent(str)));
 }
 
-function unescape(xml: string): string {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = xml;
-    return txt.value;
+function b64_to_utf8(str: string) {
+    return decodeURIComponent(escape(window.atob(str)));
 }
 
-function Xml() {
+function Encode() {
     let [input, setInput] = useState('');
     let [result, setResult] = useState('');
+    let [errorMessage, setErrorMessage] = useState('');
 
-    let handleEscape = (xml: string) => {
-        setResult(escape(xml));
+    function clean() {
+        setErrorMessage('')
+        setResult('')
     }
 
-    let handleUnescape = (xml: string) => {
-        setResult(unescape(xml));
+    let handleBase64Encode = (input: string) => {
+        clean();
+        setResult(utf8_to_b64(input));
+    }
+
+    let handleBase64Decode = (input: string) => {
+        clean()
+        let value;
+        try {
+            value = b64_to_utf8(input);
+            setResult(value);
+        } catch (error) {
+            setErrorMessage("Oops, base64 decode error");
+        }
     }
 
     let handleSwap = () => {
@@ -50,7 +48,7 @@ function Xml() {
     return (
         <>
             <div>
-                <h4>XML Tools</h4>
+                <h4>Encode Tools</h4>
             </div>
             <div className={styles.container}>
                 <div>
@@ -58,20 +56,20 @@ function Xml() {
                         rows={17}
                         value={input}
                         onChange={e => setInput(e.target.value)}
-                        placeholder="Please input the XML to be evaluate"
                     />
+                    <span>{errorMessage}</span>
                 </div>
                 <div className={styles.buttonContainer}>
                     <Space>
                         <Button type={'primary'}
                                 className={styles.button}
-                                onClick={() => handleEscape(input)}>
-                            Escape
+                                onClick={() => handleBase64Encode(input)}>
+                            Base64 Encode
                         </Button>
                         <Button type={'primary'}
                                 className={classNames(styles.button, styles.buttonGreen)}
-                                onClick={() => handleUnescape(input)}>
-                            Unescape
+                                onClick={() => handleBase64Decode(input)}>
+                            Base64 Decode
                         </Button>
                         <Button icon={<SwapOutlined className={styles.rotate90}/>}
                                 className={styles.button}
@@ -85,7 +83,6 @@ function Xml() {
                         rows={17}
                         value={result}
                         onChange={e => setResult(e.target.value)}
-                        placeholder="The result of evaluated"
                     />
                 </div>
             </div>
@@ -93,4 +90,4 @@ function Xml() {
     )
 }
 
-export default Xml
+export default Encode
