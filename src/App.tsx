@@ -1,5 +1,8 @@
 import './App.less'
 
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+
 import {Route, Routes} from "react-router-dom";
 
 import Layout from "./pages/layout/Layout";

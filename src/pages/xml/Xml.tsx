@@ -1,10 +1,12 @@
 import {Button, Input, Space} from "antd";
-import {SwapOutlined} from "@ant-design/icons";
 import {useState} from "react";
 import styles from "./Xml.module.less"
 import {classNames} from "../../utils/classNames";
+import AceEditor from "react-ace";
 
-const {TextArea} = Input;
+import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/ext-language_tools";
 
 function escape(xml: string): string {
     return xml.replace(/[<>&'"]/g, function (c: string): string {
@@ -31,7 +33,6 @@ function unescape(xml: string): string {
 }
 
 function Xml() {
-    let [input, setInput] = useState('');
     let [result, setResult] = useState('');
 
     let handleEscape = (xml: string) => {
@@ -42,11 +43,6 @@ function Xml() {
         setResult(unescape(xml));
     }
 
-    let handleSwap = () => {
-        setInput(result)
-        setResult(input)
-    }
-
     return (
         <>
             <div>
@@ -54,39 +50,33 @@ function Xml() {
             </div>
             <div className={styles.container}>
                 <div>
-                    <TextArea
-                        rows={17}
-                        value={input}
-                        onChange={e => setInput(e.target.value)}
-                        placeholder="Please input the XML to be evaluate"
+                    <AceEditor
+                        style={{
+                            width: '100%',
+                            height: 'calc(100vh - 200px)',
+                            border: 'solid 1px'
+                        }}
+                        focus
+                        mode="XML"
+                        theme="github"
+                        value={result}
+                        onChange={val => setResult(val)}
+                        editorProps={{$blockScrolling: true}}
                     />
                 </div>
                 <div className={styles.buttonContainer}>
                     <Space>
                         <Button type={'primary'}
                                 className={styles.button}
-                                onClick={() => handleEscape(input)}>
+                                onClick={() => handleEscape(result)}>
                             Escape
                         </Button>
                         <Button type={'primary'}
                                 className={classNames(styles.button, styles.buttonGreen)}
-                                onClick={() => handleUnescape(input)}>
+                                onClick={() => handleUnescape(result)}>
                             Unescape
                         </Button>
-                        <Button icon={<SwapOutlined className={styles.rotate90}/>}
-                                className={styles.button}
-                                onClick={() => handleSwap()}>
-                            Swap
-                        </Button>
                     </Space>
-                </div>
-                <div>
-                    <TextArea
-                        rows={17}
-                        value={result}
-                        onChange={e => setResult(e.target.value)}
-                        placeholder="The result of evaluated"
-                    />
                 </div>
             </div>
         </>
