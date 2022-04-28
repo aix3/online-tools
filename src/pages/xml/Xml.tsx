@@ -4,9 +4,8 @@ import styles from "./Xml.module.less"
 import {classNames} from "../../utils/classNames";
 import AceEditor from "react-ace";
 
-import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/theme-github";
-import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/mode-xml";
+import "ace-builds/src-noconflict/theme-tomorrow";
 
 function escape(xml: string): string {
     return xml.replace(/[<>&'"]/g, function (c: string): string {
@@ -49,20 +48,28 @@ function Xml() {
                 <h4>XML Tools</h4>
             </div>
             <div className={styles.container}>
-                <div>
+                <div style={{border: "solid 1px"}}>
                     <AceEditor
-                        style={{
-                            width: '100%',
-                            height: 'calc(100vh - 200px)',
-                            border: 'solid 1px'
-                        }}
+                        width={'100%'}
+                        height={'calc(100vh - 200px)'}
                         focus
-                        mode="XML"
-                        theme="github"
+                        mode="xml"
+                        theme="tomorrow"
+                        fontSize={14}
+                        showPrintMargin={true}
+                        showGutter={true}
+                        highlightActiveLine={true}
                         value={result}
-                        onChange={val => setResult(val)}
-                        editorProps={{$blockScrolling: true}}
-                    />
+                        onChange={(v) => {
+                            setResult(v)
+                        }}
+                        setOptions={{
+                            enableBasicAutocompletion: false,
+                            enableLiveAutocompletion: false,
+                            enableSnippets: false,
+                            showLineNumbers: true,
+                            tabSize: 2,
+                        }}/>
                 </div>
                 <div className={styles.buttonContainer}>
                     <Space>
@@ -75,6 +82,11 @@ function Xml() {
                                 className={classNames(styles.button, styles.buttonGreen)}
                                 onClick={() => handleUnescape(result)}>
                             Unescape
+                        </Button>
+                        <Button type={'default'}
+                                className={classNames(styles.button)}
+                                onClick={() => setResult('')}>
+                            Clean
                         </Button>
                     </Space>
                 </div>
